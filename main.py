@@ -22,6 +22,10 @@ class LoveCalculatorHandler(BaseHTTPRequestHandler):
             self._send_file(ROOT / "index.html")
             return
 
+        if path == "/app.js":
+            self._send_file(ROOT / "app.js")
+            return
+
         self.send_error(404, "Not found")
 
     def _send_file(self, file_path: Path):
@@ -29,7 +33,11 @@ class LoveCalculatorHandler(BaseHTTPRequestHandler):
             self.send_error(404, "Not found")
             return
         content_type = mimetypes.guess_type(file_path.name)[0] or "text/plain"
-        self._send_bytes(file_path.read_bytes(), f"{content_type}; charset=utf-8")
+        content = file_path.read_bytes()
+        if file_path.name == "index.html":
+            loader = b"<scr" + b'ipt src="/app.js"></scr' + b"ipt>"
+            content = content.replace(b"</body>", loader + b"</body>")
+        self._send_bytes(content, f"{content_type}; charset=utf-8")
 
     def _send_bytes(self, content: bytes, content_type: str):
         self.send_response(200)
