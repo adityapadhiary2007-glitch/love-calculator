@@ -45,6 +45,11 @@ def app(environ, start_response):
     return [b""] if method == "HEAD" else response
 
 
+# Explicit aliases help deployment scanners identify this WSGI app.
+application = app
+handler = app
+
+
 def main():
     port = int(os.environ.get("PORT", "5000"))
     with make_server("0.0.0.0", port, app) as server:
