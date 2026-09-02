@@ -12,6 +12,9 @@ python = ">=3.10.0,<3.12"
 useLibraryCodeForTypes = true
 exclude = [".cache"]
 
+[tool.vercel]
+entrypoint = "main:app"
+
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
 select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
