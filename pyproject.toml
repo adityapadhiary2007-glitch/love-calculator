@@ -14,6 +14,9 @@ description = "A polished love compatibility calculator"
 requires-python = ">=3.10,<3.13"
 dependencies = []
 
+[tool.uv]
+package = false
+
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
 useLibraryCodeForTypes = true
